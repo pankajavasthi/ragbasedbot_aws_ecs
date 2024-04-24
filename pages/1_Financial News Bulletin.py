@@ -10,7 +10,7 @@ from details import api_key
 
 
 
-client = openai.OpenAI(api_key = "api_key")
+client = openai.OpenAI(api_key = api_key)
 # define all functions
 def get_news_headlines(ticker):
   """

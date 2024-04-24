@@ -1,0 +1,16 @@
+IPython
+pypdf
+pandas
+numpy==1.26.2
+langchain
+streamlit
+yfinance
+openai
+pathlib
+urllib3==1.26.0
+gtts
+pandas
+langchain_openai
+faiss-cpu==1.7.4
+
+

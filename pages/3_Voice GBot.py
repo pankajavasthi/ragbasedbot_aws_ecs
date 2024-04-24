@@ -5,21 +5,15 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import sentence_transformer, huggingface
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_openai import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
-from details import api_key
 from details import gpi_key
-
 from gtts import gTTS 
-
-import yfinance as yf
-import openai
 from IPython.display import Audio
 from pathlib import Path
-#from pages.test import get_news_headlines, get_headlines_for_tickers,send_data_and_get_response,create_personalized_cast
+
 
 
 #function to load the vectordatabase
@@ -55,8 +49,6 @@ def text_to_audio(text):
         return myobj.save("welcome.mp3")
 
 
-
-
         
 knowledgeBase=load_knowledgeBase()
 llm=load_llm()
@@ -75,11 +67,10 @@ sl.header("Welcome to RAG Based GEN-AI Voice Bot")
 query=sl.text_input('Please ask you Query realted to selected Ticker')
         
         
-
                 
 #getting only the chunks that are similar to the query for llm to produce the output
 similar_embeddings=knowledgeBase.similarity_search(query)
-similar_embeddings=FAISS.from_documents(documents=similar_embeddings, embedding=OpenAIEmbeddings(api_key=api_key))
+similar_embeddings=FAISS.from_documents(documents=similar_embeddings, embedding= HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"))
                 
 #creating the chain for integrating llm,prompt,stroutputparser
 retriever = similar_embeddings.as_retriever()
